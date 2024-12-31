@@ -261,10 +261,9 @@ public class AuthController {
 ---
 
 By following this guide, you can implement JWT-based authentication and authorization in a Spring Boot application.
-```
 
-This `README.md` provides an in-depth overview of JWT, including its structure, usage, security, benefits, and a complete implementation example for Spring Boot.
-```
+
+This `ARTICLE` provides an in-depth overview of JWT, including its structure, usage, security, benefits, and a complete implementation example for Spring Boot.
 
 
 
