@@ -251,6 +251,76 @@ public class AuthController {
 
 ---
 
+
+## Understanding the "Bearer " Token Format
+
+In JWT authentication, the token is often passed in the **Authorization** header of the HTTP request in the format:
+
+```
+Authorization: Bearer <jwt-token>
+```
+
+### Key Components:
+- `"Bearer "`: This is a keyword used to indicate that the following part of the header is a Bearer token.
+- `<jwt-token>`: This is the actual JWT token string, which is used for authentication.
+
+### Why is the space important?
+
+The string `"Bearer "` consists of **7 characters**:
+1. `B` (1st character)
+2. `e` (2nd character)
+3. `a` (3rd character)
+4. `r` (4th character)
+5. `e` (5th character)
+6. `r` (6th character)
+7. **space** (7th character)
+
+This space is important when extracting the token, as it separates the **"Bearer"** keyword from the actual token. 
+
+### Token Extraction Logic:
+
+The line:
+
+```
+if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+    // This checks if the header starts with "Bearer " (7 characters including the space)
+    token = authorizationHeader.substring(7); // removes the "Bearer " part, leaving only the JWT token
+}
+```
+
+checks if the `Authorization` header starts with the string `"Bearer "` (note the space after "Bearer"). The Bearer token scheme in HTTP headers uses the format:
+
+```
+Authorization: Bearer <jwt-token>
+```
+
+So, `"Bearer "` has **7 characters** (including the space), which ensures that the token is indeed a Bearer token and not some other type of token.
+
+Once the header is confirmed to start with `"Bearer "`, the actual JWT token is extracted by removing the first 7 characters, like this:
+
+```
+token = authorizationHeader.substring(7); // removes "Bearer " from the header
+```
+
+For example, if the `Authorization` header is:
+
+```
+Authorization: Bearer your-jwt-token-here
+```
+
+The `substring(7)` function will extract the JWT token part:
+
+```
+your-jwt-token-here
+```
+
+### Conclusion:
+Always make sure to check for the full `"Bearer "` string, including the **space**, to accurately extract the JWT token. This ensures the token is properly handled and validated in your application. By doing this, you are confirming that the token follows the correct Bearer format and can be used for authentication.
+
+This version includes the detailed explanation about the `startsWith("Bearer ")` check and how the space is handled during token extraction.
+
+---
+
 ## How it Works:
 
 1. User logs in by sending credentials.
