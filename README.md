@@ -281,7 +281,7 @@ This space is important when extracting the token, as it separates the **"Bearer
 
 The line:
 
-```
+```java
 if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
     // This checks if the header starts with "Bearer " (7 characters including the space)
     token = authorizationHeader.substring(7); // removes the "Bearer " part, leaving only the JWT token
@@ -290,7 +290,7 @@ if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
 
 checks if the `Authorization` header starts with the string `"Bearer "` (note the space after "Bearer"). The Bearer token scheme in HTTP headers uses the format:
 
-```
+```java
 Authorization: Bearer <jwt-token>
 ```
 
@@ -298,19 +298,19 @@ So, `"Bearer "` has **7 characters** (including the space), which ensures that t
 
 Once the header is confirmed to start with `"Bearer "`, the actual JWT token is extracted by removing the first 7 characters, like this:
 
-```
+```java
 token = authorizationHeader.substring(7); // removes "Bearer " from the header
 ```
 
 For example, if the `Authorization` header is:
 
-```
+```java
 Authorization: Bearer your-jwt-token-here
 ```
 
 The `substring(7)` function will extract the JWT token part:
 
-```
+```java
 your-jwt-token-here
 ```
 
